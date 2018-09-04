@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,Chrome=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+    <title>表单数据查询</title>
+
+    <link href="css/bootstrap.min.css" rel="stylesheet" />
+    <link href="css/iconfont/iconfont.css" rel="stylesheet">
+    <link href="css/bootstrap-select.css" rel="stylesheet">
+    <link href="css/metroStyle/metroStyle.css" rel="stylesheet">
+    <link href="css/green.css" rel="stylesheet">
+    <link href="css/webuploader.css" rel="stylesheet">
+    <link href="css/simplebar.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="js/html5shiv.min.js"></script>
+    <script src="js/respond.min.js"></script>
+    <![endif]-->
+
+    <script src="js/jquery-1.11.3.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/jquery.bootpag.min.js"></script>
+    <script src="js/layer/laydate/laydate.js"></script>
+    <script src="js/bootstrap-select.min.js"></script>
+    <script src="js/jquery.ztree.all-3.5.min.js"></script>
+    <script src="js/icheck.min.js"></script>
+    <script src="js/layer/layer.js"></script>
+    <script src="js/simplebar.js"></script>
+    <script src="js/dms.js"></script>
+
+    <script src="js/summernote.min.js"></script>
+    <script src="form/printer.js"></script>
+
+    <script src="js/swfobject.js"></script>
+    <script src="js/svg.js"></script>
+    <script src="js/base64.min.js"></script>
+    <script src="js/echarts.min.js"></script>
+    <script src="js/echarts-wordcloud.min.js"></script>
+    <script src="js/customed.js"></script>
+    <script src="js/china.js"></script>
+    <script src="js/world.js"></script>
+    <script src="js/chart.adaptor.js"></script>
+    <script src="report/js/report.js"></script>
+    <script src="report/js/reportList.js"></script>
+    <script src="report/js/jquery.treetable.js"></script>
+    <script src="js/webuploader.min.js"></script>
+    <script src="form/form-data.js"></script>
+
+</head>
+<body>
+<div id="formQuery" class="page-condition" style="padding-top:5px;padding-bottom:5px;">
+    <form class="form-horizontal" id="reportQuery-form">
+        <input type="hidden" id="formId1" name="formId1" value="71">
+        <input type="hidden" id="rptId" name="rptId" value="71">
+        <input type="hidden" id="curPage" name="_curPage" value="">
+
+        <table width="100%">
+            <tr><td>
+                <table id="formId">
+                    <colgroup>
+                        <col style="width:109px;"/>
+                        <col style="width:158px;"/>
+                        <col style="width:109px;"/>
+                        <col style="width:159px;"/>
+                        <col style="width:117px;"/>
+                        <col style="width:164px;"/>
+                    </colgroup>
+                    <tr style="height:33px;">
+                        <td rowspan="1" colspan="1" style="text-align:center;">报销单号
+                        </td>
+                        <td rowspan="1" colspan="1" style="vertical-align:middle;">
+                            <input type="text" name="expenseNo" style="width:150px;height:25px;" class="form-control" />
+                        </td>
+                        <td rowspan="1" colspan="1" style="text-align:center;">报销人
+                        </td>
+                        <td rowspan="1" colspan="1" style="vertical-align:middle;">
+                            <input type="text" name="expensePerson" style="width:150px;height:25px;" class="form-control" />
+                        </td>
+                        <td rowspan="1" colspan="1" style="text-align:center;">报销日期
+                        </td>
+                        <td rowspan="1" colspan="1" style="vertical-align:middle;">
+                            <input type="text" name="expenseDate" class="form_time form-control has-form-icon"
+                                   data-date-format="yyyy-MM-dd" style="width:150px;height:25px;" />
+                            <i class="icon iconfont icon-date form-icon"></i>
+                        </td>
+                    </tr>
+                    <tr style="height:31px;">
+                        <td rowspan="1" colspan="1" style="">
+                        </td>
+                        <td rowspan="1" colspan="1" style="">
+                        </td>
+                        <td rowspan="1" colspan="1" style="">
+                        </td>
+                        <td rowspan="1" colspan="1" style="">
+                        </td>
+                        <td rowspan="1" colspan="2" style="vertical-align:middle;">
+                            <input type="button" value="查询" class="c-btn blue-bg small" style="margin-right:5px;" onclick="report.btnQueryWithParam()" />
+                            <input type="button" value="重置" class="c-btn skyblue-bg small" onclick="report.resetQueryForm()" />
+                        </td>
+                    </tr>
+                </table>
+            </td>
+            </tr>
+        </table>
+
+    </form>
+</div>
+<div class="tool-info" style="border-top:1px solid #f1f4f7;"></div>
+<div class="collapse navbar-collapse page-menu">
+    <form class="form-horizontal" id="exportQuery-form" action="/dmp/report/exportFile.htm" method="post">
+        <input id='fileType' type='hidden' name='_fileType' />
+        <input id='_pdfType' type='hidden' name='_pdfType' value=""/>
+        <div id="export-form-input" style="display: none;"></div>
+        <table style="height:30px;">
+            <tr>
+                <td>
+                    <ul class="nav navbar-nav">
+                        <li style="width:70px;"><a href="javascript:void(0);" id="icon-add-form"  title="新建数据">
+                            <i class="icon iconfont icon-plus green fa-lg" style="font-size:17px">
+                            </i>&nbsp;新增</a></li>
+                <li style="width:70px;"><a href="javascript:void(0);" id="icon-query-form"  title="查看详情">
+                    <i class="icon iconfont icon-search orange fa-lg" style="font-size:17px">
+                    </i>&nbsp;查看</a></li>
+                    </ul>
+                </td>
+            </tr>
+        </table>
+    </form>
+</div>
+<div class="table-content" id="table-content">
+
+</div>
+
+<script type="text/javascript">
+    var report = new Report("table");
+    report.loadMode = "0";
+    report.initFormReport();
+
+    var formData = new FormDataList("table");
+    formData.init();
+
+    if($("#tl-excel-import").length > 0) {
+        var upFile = new UpFile("table/form/importxls.htm", "tl-excel-import",
+                {formId:$("#formId").val()}, function() {},
+                function() {
+            report.loadContentWithParam();
+        });
+        upFile.init();
+    }
+
+    var layerIndex = 0;
+    function closeWin(type) {
+        layer.close(layerIndex);
+        report.loadContentWithParam();
+        if(type == 0) {
+            layer.msg('数据新增成功', {offset: '80px'});
+        } else if(type == 1) {
+            layer.msg('数据更新成功', {offset: '80px'});
+        }
+    }
+</script>
+</body>
+</html>
+

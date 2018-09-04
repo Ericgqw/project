@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>KOIDE</title>
+    <link rel="stylesheet" href="./css/prs.css"/>
+</head>
+<body>
+    <div class="main">
+        <div class="header">
+            <div class="header-left"><span class="title">PRS表格</span></div>
+            <div class="header-center"><span class="logo">LOGO</span></div>
+            <div class="header-right">
+                <div class="category">
+                    <div class="category-title">PRS表格</div>
+                    <div class="category-id">R</div>
+                </div>
+            </div>
+        </div>
+        <div class="content">
+			<form >
+            <div>
+                <p style="display: inline-block;margin-left: 10%">非生產物料/樣辨物料要求表<span style="font-size: 20px;font-weight: bold">(PRS)</span></p>
+                <p style="float: right;margin-right: 100px">PRS表格編號 <input type="text" name="PRS_num"/></p>
+            </div>
+            <div style="margin-left:10%">
+                <input type="checkbox" name="Purchase_place" value="經香港購買"/> 經香港購買
+                <input type="checkbox" style="margin-left:30px" name="Purchase_place"  value="經順德購買"/> 經順德購買
+                <span style="float: right;margin-right: 100px">財務部編號 <input type="text" name="financial_no"/></span>
+            </div>
+            <div>
+                <p style="margin-left: 10%">提出部門
+                   <span><input type="checkbox" name="Senddep" value="R&D"/>R&D</span>
+                    <span><input type="checkbox" name="Senddep" value="行政部"/>行政部</span>
+                    <span><input type="checkbox" name="Senddep" value="工程部"/>工程部</span>
+                    <span><input type="checkbox" name="Senddep" value="其他"/>其他 <input type="text"/></span>
+                    <span style="float: right;margin-right: 100px">部門編號 <input type="text" /></span>
+                </p>
+            </div>
+            <div>
+                <p style="margin-left: 10%">
+                    <span>發件人 <input type="text" name="sender"/></span>
+                    <span style="margin:0 31px">提出日期 <input type="text" placeholder="请选择日期" class="time" name="Datesubmit"></span>
+                    <span>要求完成的日期 <input type="text" placeholder="请选择日期" class="time" name="Daterequest"></span>
+                </p>
+            </div>
+            <div style="width: 85%;margin: 0 auto">
+                <p>已登錄過PRS系統的物品請填寫下表</p>
+                <div style="width:100%;border: 1px solid black;padding: 5px" class="showbtn">
+                    <p>PRS供應商代號 <input type="text" name="supplier_no"/> <input type="button" value="添加一行" class="add-btn" style="float: right;margin-right: 20px" name="supplier_no"/></p>
+                    <table cellspacing="5px">
+                        <tr>
+                            <th></th>
+                            <th >已登錄PRS型號</th>
+                            <th >物料說明</th>
+                            <th>數量</th>
+                            <th >單位</th>
+                            <th >倉存餘數</th>
+                            <th >單價</th>
+                            <th >貨幣</th>
+                            <th></th>
+                        </tr>
+                        <tr>
+                            <td ><span class="index">1</span>/</td>
+                            <td><input type="text" name="model-1"/></td>
+                            <td><input type="text" name="description-1"/></td>
+                            <td><input type="text" name="number-1"/></td>
+                            <td><input type="text" name="unit-1"/></td>
+                            <td><input type="text" name="remainder-1"/></td>
+                            <td><input type="text" name="price-1"/></td>
+                            <td><input type="text" name="currency-1"/></td>
+                            <td><input type="button" class="del-btn" value="刪除"/></td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <div style="width: 85%;margin: 20px auto">
+                <p>物料用途</p>
+                <div style="width:100%;border: 1px solid black;padding: 5px">
+                    <p>
+                        <span><input type="checkbox"/>產品物料樣辨，請填寫下表</span>
+                        <span style=" margin: 0px 50px"><input type="checkbox"/>專用協助產品生產用，請填寫下表</span>
+                        <span><input type="checkbox"/>通用產品生產用</span>
+                    </p>
+                    <div>
+                        <div style=" width: 50%;float: left">
+                            <p>項目號：<input type="text" name="Project_no"/> <span style="float: right"> 其他用途：</span></p>
+                            <p>生產計畫名稱： <input type="text" name="plan_name"/></p>
+                            <p>生產產品型號： <input type="text" name="plan_type"/></p>
+                            <p>計畫產量： <input type="text" name="plan_count"/></p>
+                        </div>
+                        <div style="width: 50%;float: right">
+                            <textarea name="goods_subuse" style="height:148px;width:90%;padding:4px;font-size:16px"></textarea>
+                        </div>
+                    </div>
+                    <p style="margin-top: 190px">
+                        物品類別 <input type="checkbox" name="category" value="物料"/>物料
+                        <input type="checkbox" name="category" value="電子零件"/>電子零件
+                        <input type="checkbox" name="category" value="刀具"/>刀具
+                        <input type="checkbox" name="category" value="儀器"/>儀器
+                        <input type="checkbox" name="category" value="工具"/>工具
+                        <input type="checkbox" name="category" value="模具"/>模具
+                        <input type="checkbox" name="category" value="氣動部件"/>氣動部件
+                        <input type="checkbox" name="category" value="設備部件"/>設備部件
+                        <input type="checkbox" name="category" value="其他"/>其他<input type="text"/>
+
+                    </p>
+                    <p>
+                        付款條件 <input type="checkbox" name="payment" value="預付"/>預付
+                        <input type="checkbox" name="" value="月结"/>月結，<input type="text" style="width: 30px">天
+                        <input type="checkbox" name="payment" value="貨到付款"/>貨到付款
+                        <input type="checkbox" name="payment" value="其他"/>其他<input type="text"/>
+                    </p>
+                    <div style="clear:both;height:0;font-size: 1px;line-height: 0px;"></div>
+                </div>
+                <div style="margin-left: 20px;">
+                    <p>
+                        部門主管批核：<input type="text" style="margin-right: 100px"/>
+                        經理部批核：<input type="text"/>
+                    </p>
+                    <p>
+                        部門主管意見：<input type="text" style="margin-right: 100px"/>
+                        經理部行政部意見：<input type="text"/>
+                    </p>
+                </div>
+                <div>
+                    <div style="width: 50%;float: left">
+                        <p style="font-size: 13px;font-weight: bold">
+                            填表注意事項:<br>
+                            1.一張要求表最多可填寫十五項已登錄過的物品。<br>
+                            2.如需要購買的物品多餘十五項，請用多張表格填寫。<br>
+                            3.PRS NO.由前臺填寫並記錄。<br>
+                        </p>
+                    </div>
+                    <div style="width: 50%;float: right">
+                        <div style="border: 1px solid black;padding: 15px">
+                            <p>發件人簽字： <input type="text"/></p>
+                            <p>日期：<input type="text" placeholder="请选择日期" class="time"></p>
+                        </div>
+                    </div>
+                </div>
+                <div style="clear:both;height:0;font-size: 1px;line-height: 0px;"></div>
+            </div>
+			<input type="button" value="查询" style="height:30px;width:80px;font-size:20px;font-weight:bold;margin-left:300px;margin-bottom:10px"/>
+			<input type="submit" value="提交" style="height:30px;width:80px;font-size:20px;font-weight:bold;margin-left:150px;margin-bottom:10px"/>
+		</form>
+        </div>
+    </div>
+</body>
+<script src="js/jquery-1.7.2.min.js"></script>
+<script src="plugin/laydate/laydate.js"></script>
+<script>
+    $(function () {
+        //添加行
+        $(".add-btn").click(function(){
+            //获取表格最后一行的index
+           var index =  $($("table tr:last").find(".index")).text();
+            index++;
+            if(index<=15){
+                $('<tr><td ><span class="index">'+index+'</span>/</td>' +
+                ' <td><input type="text" name="model-'+index+'"/></td>' +
+                ' <td><input type="text" name="description-'+index+'"/></td>' +
+                ' <td><input type="text" name="number-'+index+'"/></td>' +
+                ' <td><input type="text" name="unit-'+index+'"/></td> ' +
+                '<td><input type="text" name="remainder-'+index+'"/></td> ' +
+                '<td><input type="text" name="price-'+index+'"/></td> ' +
+                '<td><input type="text" name="currency-'+index+'"/></td> ' +
+                '<td><input type="button" class="del-btn" value="刪除"/></td></tr>').appendTo("table");
+            }else{
+                alert("最多15条");
+            }
+        })
+        //删除行
+        $(document).on("click",".del-btn",function () {
+            //获取tr节点
+            var tr = $(this).parents("tr");
+            //获取当前行的index;
+           var index = $(tr).find("span").text();
+            //选中当前行，之后的所有行
+            var trs = $(tr).nextAll();
+            //改变之后的每一个index
+            $(trs).each(function (i,e) {
+               var val = $(e).find(".index").text();
+                val--;
+                $(e).find(".index").text(val);
+            })
+            //删除行
+            $(tr).remove();
+        })
+		
+		 //隐藏按钮
+        $(".add-btn").hide();
+        $(".del-btn").hide();
+        //移入时显示
+        $(".showbtn").mouseenter(function(){
+            $(".add-btn").show();
+            $(".del-btn").show();
+        })
+        //移出时隐藏
+        $(".showbtn").mouseleave(function(){
+            $(".add-btn").hide();
+            $(".del-btn").hide();
+        })
+    })
+</script>
+<script>
+
+    lay('.time').each(function(){
+        laydate.render({
+            elem: this
+            ,trigger: 'click'
+        });
+    });
+</script>
+</html>

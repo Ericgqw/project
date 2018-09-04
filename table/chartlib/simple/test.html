@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>ECharts</title>
+	<script src="../js/mycharts.js"></script>
+	<script src="../js/echarts.js"></script>
+    <script src="../js/jquery-1.11.3.min.js"></script>
+	<script src="../theme/roma.js"></script>
+   <script src="../theme/infographic.js"></script>
+	<script src="../theme/shine.js"></script>
+	<script src="../theme/dark.js"></script>
+	<script src="../theme/macarons.js"></script>
+	<script src="../theme/vintage.js"></script>
+	
+	<link rel="stylesheet" href="../css/style.css" media="screen" type="text/css" />
+</head>
+<body>
+	<div id="main" style="width: 1200px;height:600px;padding:100px">
+	</div>
+	<script type="text/javascript">	
+	<!--参数一：放置图表div的id /参数二:主题  	 主题一：roma 	 主题二：infographic 	 主题三：shine 	 主题四：dark 	 主题五：macarons 	 主题六：vintage 	/参数三：渲染器（canvas（适用于pc）(默认)，svg（适用于移动端））
+    var myChart = echarts.init(document.getElementById('main'),"dark",{renderer: 'canvas'});                
+    var db_ip="192.168.110.148";
+	var db_name="RD_AUTO_Machine";
+	var sql_sentence="select * from Plan_prd";
+	var object={
+	    "appneding_string1":"MACH",
+	    "appending_string2":"PLANqty",
+	    "appending_string3":"qtyOK",
+		"appending_string4":"Remainqty"
+	}
+	var temp=draw_chart(sql_sentence,object,db_ip,db_name);
+	var attribute=new barchart( );
+	var length=3;                 //图表所需显示的series
+	attribute.mychart=myChart;
+	attribute.title.text="test";
+	attribute.tooltip.trigger="axis";
+	attribute.legend.data=["计划数量","完成数量","剩余数量"];
+	attribute.xAxis.data=temp[0];
+	//myChart.setOption(attribute)
+	for(let i=0;i<length;i++){
+            attribute.series.push({
+                  name:"",
+                  type:"",
+				  data:""
+            })
+        }
+	attribute.series[0].name=["计划数量"];
+	attribute.series[0].type="bar";
+	attribute.series[0].data=temp[1];
+	attribute.series[1].name=["完成数量"];
+	attribute.series[1].type="bar";
+	attribute.series[1].data=temp[2];
+	attribute.series[2].name=["剩余数量"];
+	attribute.series[2].type="line";
+	attribute.series[2].data=temp[3];
+	console.log(attribute)
+	myChart.setOption(attribute);
+    </script>    
+</body>
+</html>

@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head >
+<meta charset="utf-8">
+<script> var __basePath = ''; </script>
+<style> html, body { margin: 0; padding: 0; height: 100%; } </style>
+    <script src="js/ag-grid-enterprise.min.js"></script></head>
+<body>
+
+<div style="box-sizing: border-box; padding-top: 30px; height: 98%;">
+    <div style="height: 100%;" id="myGrid" class="ag-theme-balham"></div>
+</div>
+<div style="position: fixed; top: 0; left: 0;">
+    Page Size:
+    <select onchange="onPageSizeChanged()" id="page-size">
+        <option value="10" selected>10</option>
+        <option value="100">100</option>
+        <option value="500">500</option>
+        <option value="1000">1000</option>
+    </select>
+</div>
+    <script>
+	var columnDefs = [
+    {
+        headerName: 'Athlete',            //表头名字
+        field: 'athlete',                 //定义要显示的数据的字段名,相当于列id
+        width: 150,
+        filterParams: {newRowsAction: 'keep'},       //过滤参数
+        checkboxSelection: function(params) {
+            // we put checkbox on the name if we are not doing grouping
+            return params.columnApi.getRowGroupColumns().length === 0;
+        },
+        headerCheckboxSelection: function(params) {
+            // we put checkbox on the name if we are not doing grouping
+            return params.columnApi.getRowGroupColumns().length === 0;
+        }
+    },
+    {headerName: '年龄', field: 'age', width: 90},
+    {headerName: 'Country', field: 'country', width: 120, filterParams: {newRowsAction: 'keep'}},   //加载新行的做法
+    {headerName: 'Year', field: 'year', width: 90, filterParams: {newRowsAction: 'keep'}},
+    {headerName: 'Date', field: 'date', width: 110, filterParams: {newRowsAction: 'keep'}},
+    {headerName: 'Sport', field: 'sport', width: 110, filterParams: {newRowsAction: 'keep'}},
+    {headerName: 'Gold', field: 'gold', width: 100, filterParams: {newRowsAction: 'keep'}},
+    {headerName: 'Silver', field: 'silver', width: 100, filterParams: {newRowsAction: 'keep'}},
+    {headerName: 'Bronze', field: 'bronze', width: 100, filterParams: {newRowsAction: 'keep'}},
+    {headerName: 'Total', field: 'total', width: 100, filterParams: {newRowsAction: 'keep'}}
+];
+
+	var autoGroupColumnDef = {                          
+		headerName: 'Group',
+		width: 200,
+		field: 'athlete',
+		valueGetter: function(params) {
+			if (params.node.group) {
+				return params.node.key;
+			} else {
+				return params.data[params.colDef.field];
+        }
+    },
+    headerCheckboxSelection: true,             //每次对显示的列进行更改时都会调用该函数
+    // headerCheckboxSelectionFilteredOnly: true,
+		cellRenderer:'agGroupCellRenderer',
+		cellRendererParams: {
+        checkbox: true
+		}
+	};
+
+	var gridOptions = {
+		enableSorting: true,               //启用排序             
+		enableFilter: true,               //启用过滤
+		suppressRowClickSelection: true,   //单击时不会选择行
+		groupSelectsChildren: true,         //分组可以选择子节点
+		debug: true,
+		rowSelection: 'multiple',           //multiple:多选  single：单选
+		enableColResize: true,              //列自适应，可以拖拽改变列大小
+		rowGroupPanelShow: 'always',         //顶部显示“行组面板”   
+		pivotPanelShow: 'always',            //在顶部显示“枢轴面板”
+		enableRangeSelection: true,          //设置为true以启用范围选择
+		columnDefs: columnDefs,               //列字段定义
+		pagination: true,                  //启用分页
+		paginationPageSize: 10,            //分页后每页行数
+		autoGroupColumnDef: autoGroupColumnDef,   //指定自动列定义
+		paginationNumberFormatter: function(params) {
+			return '[' + params.value.toLocaleString() + ']';
+    },
+    defaultColDef: {
+        editable: true,
+        enableRowGroup: true,
+        enablePivot: true,
+        enableValue: true
+    }
+};
+
+	function onPageSizeChanged(newPageSize) {                //页面自适应回调函数  
+		var value = document.getElementById('page-size').value;
+		gridOptions.api.paginationSetPageSize(Number(value));
+}
+// setup the grid after the page has finished loading
+	document.addEventListener('DOMContentLoaded', function() {
+		var gridDiv = document.querySelector('#myGrid');
+		new agGrid.Grid(gridDiv, gridOptions);
+
+    agGrid.simpleHttpRequest({url: 'https://raw.githubusercontent.com/ag-grid/ag-grid-docs/master/src/olympicWinners.json'})
+	.then(function(data) {
+        gridOptions.api.setRowData(data);            //通过后台返回json进行数据填充
+        gridOptions.api.paginationGoToPage(4);
+    });
+});
+	</script>
+</body>
+</html>

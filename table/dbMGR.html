@@ -1,0 +1,659 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,Chrome=1" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+
+    <title>数据源管理</title>
+    
+<link href="./css/bootstrap.min.css" rel="stylesheet" />
+<link href="./css/iconfont/iconfont.css" rel="stylesheet">
+<link href="./css/bootstrap-select.css" rel="stylesheet">
+<link href="./css/metroStyle/metroStyle.css" rel="stylesheet">
+<link href="./css/green.css" rel="stylesheet">
+<link href="./css/webuploader.css" rel="stylesheet">
+<link href="./css/simplebar.css" rel="stylesheet">
+<link href="./css/style.css" rel="stylesheet">
+
+<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+   <!--[if lt IE 9]>
+     <script src="/dmp/page/js/html5shiv.min.js"></script>
+     <script src="/dmp/page/js/respond.min.js"></script>
+   <![endif]-->
+    <link rel="stylesheet" type="text/css" href="./css/iconfont/iconfont.css">
+    <link href="./design/css/style.css" rel="stylesheet" />
+    
+<script src="./js/jquery-1.11.3.min.js"></script>
+<script src="./js/bootstrap.min.js"></script>
+<script src="./js/simplebar.js"></script>
+<script src="./js/jquery.bootpag.min.js"></script>
+<script src="./js/bootstrap-select.min.js"></script>
+<script src="./js/bootstrap3-validation.js"></script>
+<script src="./js/jquery.ztree.all-3.5.min.js"></script>
+<script src="./js/icheck.min.js"></script>
+<script src="./js/layer/layer.js"></script>
+<script src="./js/dms.js"></script>
+
+<script src="./js/summernote.min.js"></script>
+<script src="./js/load-image.all.min.js"></script>
+<script src="./js/ajaxfileupload.js"></script>
+<script src="./form/js/printer.js"></script>
+<script src="./form/js/form.js"></script>
+<script src="./form/js/form-data.js"></script>
+<script src="./js/webuploader.min.js"></script>
+
+<script src="./js/swfobject.js"></script>
+<script src="./js/svg.js"></script>
+<script src="./js/echarts.min.js"></script>
+<script src="./js/customed.js"></script>
+<script src="./js/china.js"></script>
+<script src="./js/chart.adaptor.js"></script>
+<script src="./report/js/report.js"></script>
+<script src="./report/js/reportList.js"></script>
+<script src="./report/js/jquery.treetable.js"></script>
+</head>
+<body>
+ <div class="main" style="padding-top:60px;">
+    <div class="header-top navbar fixed-top" style="margin-left:60px;padding:16px;">
+           <span style="padding-left:60px;font-size:14px;"><b>数据源管理</b></span>
+     </div>
+	 <div style="position:fixed;top:0;float:left;width:60px;height:100%;background-color: #3b3f51;z-index:20;padding-top:20px;">
+	      <ul class="left-tool-menu">
+	        <li>
+	        
+	               <a href="./desReport.html"><i class="icon iconfont icon-baobiaosheji16x16 fa-lg" style="font-size:24px"></i><span class="icon-name">报表设计</span></a>
+	             
+	        </li>
+	        <li class="left-tool-menu-active">
+	          <a href="/dmp/source/index.htm?type=def&dev="><i class="icon iconfont icon--shujuyuan fa-lg" style="font-size:28px"></i><span class="icon-name">数据源</span></a>
+	        </li>
+	        <li>
+	           
+	             
+	             
+	               <a href="/dmp/rptMgr/def/index.htm"><i class="icon iconfont icon-baobiao fa-lg" style="font-size:24px"></i><span class="icon-name">报表</span></a>
+	             
+	          
+	        </li>
+	       </ul>
+      </div>
+      <div class="main-box" style="margin-left: 60px;">
+		  <div class="main-content">
+		      <div class="tool-btn" style="margin-left:18px;">
+		       
+				<span id="icon-add-source">
+					<i class="icon iconfont icon-plus green icon-size-16"></i>&nbsp;新增数据源
+				</span>
+			    
+			  </div>
+			  <div class="table-content" id="table-content">
+	<div id="contentDiv" class="panel-ct">
+		<table class="table table-bordered table-hover">
+			<thead>
+				<tr>
+					<th width="8%">名称</th>
+					<th width="5%">数据库类型</th>
+					<th width="10%">IP地址</th>
+					<th width="4%">端口</th>
+					<th width="4%">数据库</th>
+					<th width="5%">用户名</th>
+					<th width="5%">密码</th>
+					<th width="6%">初始化连接数</th>
+					<th width="6%">最大连接数</th>
+					<th width="5%">操作</th>
+				</tr>
+			</thead>
+			<tbody>
+				
+			</tbody>
+		</table>
+	</div>
+	</div>
+	</div>
+	</div>
+	
+	<div id="sourceAdd" style="display:none;margin:10px;margin-top:20px;">
+	   <form class="form-horizontal" id="sourceAdd-form">
+			<div class="form-group">
+			   <label class="col-sm-3 control-label">名称:</label>
+			   <div class="col-sm-7">
+				   <input type="text" class="form-control" name="name" id="add_name" check-type="required" required-message="请输入名称"/>
+			   </div>
+			</div>
+			<div class="form-group">
+			   <label class="col-sm-3 control-label">数据库类型:</label>
+			   <div class="col-sm-7">
+				   <select class="selectpicker form-control" name="dbType" id="add_dbType" data-style="btn-select">
+			             <option value="mysql" selected="selected">mysql</option>
+			             <option value="oracle">oracle</option>
+			             <option value="db2">DB2</option>
+			             <option value="SQLServer">SQLServer</option>
+			             <option value="sybase">sybase</option>
+			             <option value="PostgreSQL">PostgreSQL</option>
+			      </select>
+			   </div>
+			</div>
+			<div class="form-group">
+			   <label class="col-sm-3 control-label">主机名或IP地址:</label>
+			   <div class="col-sm-7">
+				   <input type="text" class="form-control" name="url" id="add_url" value="localhost" check-type="required" required-message="请输入主机名或IP地址"/>
+			   </div>
+			</div>
+			<div class="form-group">
+			   <label class="col-sm-3 control-label">端口:</label>
+			   <div class="col-sm-7">
+				   <input type="text" class="form-control" name="port" value="3306" id="add_port" check-type="int" />
+			   </div>
+			</div>
+			<div class="form-group">
+			   <label class="col-sm-3 control-label">数据库:</label>
+			   <div class="col-sm-7">
+				   <input type="text" class="form-control" name="dbName" id="add_dbName"/>
+			   </div>
+			</div>
+			<div class="form-group">
+			   <label class="col-sm-3 control-label">用户名:</label>
+			   <div class="col-sm-7">
+				   <input type="text" class="form-control" name="username" id="add_username" check-type="required" required-message="请输入数据库用户名"/>
+			   </div>
+			</div>
+			<div class="form-group">
+			   <label class="col-sm-3 control-label">密码:</label>
+			   <div class="col-sm-7">
+				   <input type="text" class="form-control" name="password" id="add_password"/>
+			   </div>
+			</div>
+			<div class="form-group">
+			   <label class="col-sm-3 control-label">编码:</label>
+			   <div class="col-sm-7">
+				   <select class="selectpicker form-control" name="dbCharset" id="add_dbCharset" title="" data-style="btn-select" data-container="body">
+			             <option value="" selected="selected"></option>
+			             <option value="UTF-8">UTF-8</option>
+			             <option value="GBK">GBK</option>
+			             <option value="GB2312">GB2312</option>
+			      </select>
+			   </div>
+			</div>
+			<div class="form-group">
+			   <label class="col-sm-3 control-label">初始化连接数:</label>
+			   <div class="col-sm-7">
+				   <input type="text" class="form-control" name="initialPoolSize" id="add_initialPoolSize" value="10" check-type="required int" required-message="请输入正确的初始化连接数"/>
+			   </div>
+			</div>
+			<div class="form-group">
+			   <label class="col-sm-3 control-label">最大连接数:</label>
+			   <div class="col-sm-7">
+				   <input type="text" class="form-control" name="maxPoolSize" id="add_maxPoolSize" value="100" check-type="required int" required-message="请输入正确的最大连接数"/>
+			   </div>
+			</div>
+			<div class="form-group">
+			   <label class="col-sm-3 control-label">最大空闲时间(s):</label>
+			   <div class="col-sm-7">
+				   <input type="text" class="form-control" name="maxIdleTime" id="add_maxIdleTime" value="3600" check-type="required int" required-message="请输入正确的最大空闲时间"/>
+			   </div>
+			</div>
+		 </form>
+	</div>
+	
+	<div id="sourceMod" style="display:none;margin:10px;margin-top:20px;">
+	   <form class="form-horizontal" id="sourceMod-form">
+	        <input type="hidden" name="id" id="mod_id"/>
+	        <input type="hidden" name="sourceName" id="mod_sourceName"/>
+			<div class="form-group">
+			   <label class="col-sm-3 control-label">名称:</label>
+			   <div class="col-sm-7">
+				   <input type="text" class="form-control" name="name" id="mod_name" check-type="required" required-message="请输入名称"/>
+			   </div>
+			</div>
+			<div class="form-group">
+			   <label class="col-sm-3 control-label">数据库类型:</label>
+			   <div class="col-sm-7">
+				   <select class="selectpicker form-control" name="dbType" id="mod_dbType" data-style="btn-select">
+			             <option value="mysql">mysql</option>
+			             <option value="oracle">oracle</option>
+			             <option value="db2">DB2</option>
+			             <option value="SQLServer">SQLServer</option>
+			             <option value="sybase">sybase</option>
+			             <option value="PostgreSQL">PostgreSQL</option>
+			      </select>
+			   </div>
+			</div>
+			<div class="form-group">
+			   <label class="col-sm-3 control-label">主机名或IP地址:</label>
+			   <div class="col-sm-7">
+				   <input type="text" class="form-control" name="url" id="mod_url" check-type="required" required-message="主机名或IP地址"/>
+			   </div>
+			</div>
+			<div class="form-group">
+			   <label class="col-sm-3 control-label">端口:</label>
+			   <div class="col-sm-7">
+				   <input type="text" class="form-control" name="port" value="3306" id="mod_port" check-type="int"/>
+			   </div>
+			</div>
+			<div class="form-group">
+			   <label class="col-sm-3 control-label">数据库:</label>
+			   <div class="col-sm-7">
+				   <input type="text" class="form-control" name="dbName" id="mod_dbName"/>
+			   </div>
+			</div>
+			<div class="form-group">
+			   <label class="col-sm-3 control-label">用户名:</label>
+			   <div class="col-sm-7">
+				   <input type="text" class="form-control" name="username" id="mod_username" check-type="required" required-message="请输入数据库用户名"/>
+			   </div>
+			</div>
+			<div class="form-group">
+			   <label class="col-sm-3 control-label">密码:</label>
+			   <div class="col-sm-7">
+				   <input type="text" class="form-control" name="password" id="mod_password"/>
+			   </div>
+			</div>
+			<div class="form-group">
+			   <label class="col-sm-3 control-label">编码:</label>
+			   <div class="col-sm-7">
+				   <select class="selectpicker form-control" name="dbCharset" id="mod_dbCharset" title="" data-style="btn-select" data-container="body">
+			             <option value="" selected="selected"></option>
+			             <option value="UTF-8">UTF-8</option>
+			             <option value="GBK">GBK</option>
+			             <option value="GB2312">GB2312</option>
+			      </select>
+			   </div>
+			</div>
+			<div class="form-group">
+			   <label class="col-sm-3 control-label">初始化连接数:</label>
+			   <div class="col-sm-7">
+				   <input type="text" class="form-control" name="initialPoolSize" id="mod_initialPoolSize" check-type="required int" required-message="请输入正确的初始化连接数"/>
+			   </div>
+			</div>
+			<div class="form-group">
+			   <label class="col-sm-3 control-label">最大连接数:</label>
+			   <div class="col-sm-7">
+				   <input type="text" class="form-control" name="maxPoolSize" id="mod_maxPoolSize" check-type="required int" required-message="请输入正确的最大连接数"/>
+			   </div>
+			</div>
+			<div class="form-group">
+			   <label class="col-sm-3 control-label">最大空闲时间(s):</label>
+			   <div class="col-sm-7">
+				   <input type="text" class="form-control" name="maxIdleTime" id="mod_maxIdleTime" check-type="required int" required-message="请输入正确的最大空闲时间"/>
+			   </div>
+			</div>
+		 </form>
+	</div>
+	
+	<div id="sourceView" style="display:none;margin:10px;margin-top:20px;">
+	   <form class="form-horizontal" id="sourceQuery-form">
+			<div class="form-group">
+			   <label class="col-sm-3 control-label">名称:</label>
+			   <div class="col-sm-7 text" id="query_name">
+			   </div>
+			</div>
+			<div class="form-group">
+			   <label class="col-sm-3 control-label">数据库类型:</label>
+			   <div class="col-sm-7 text" id="query_dbType">
+			   </div>
+			</div>
+			<div class="form-group">
+			   <label class="col-sm-3 control-label">主机名或IP地址:</label>
+			   <div class="col-sm-7 text" id="query_url">
+			   </div>
+			</div>
+			<div class="form-group">
+			   <label class="col-sm-3 control-label">端口:</label>
+			   <div class="col-sm-7 text" id="query_port">
+			   </div>
+			</div>
+			<div class="form-group">
+			   <label class="col-sm-3 control-label">数据库:</label>
+			   <div class="col-sm-7 text" id="query_dbName">
+			   </div>
+			</div>
+			<div class="form-group">
+			   <label class="col-sm-3 control-label">用户名:</label>
+			   <div class="col-sm-7 text" id="query_username">
+			   </div>
+			</div>
+			<div class="form-group">
+			   <label class="col-sm-3 control-label">密码:</label>
+			   <div class="col-sm-7 text" id="query_password">
+			   </div>
+			</div>
+			<div class="form-group">
+			   <label class="col-sm-3 control-label">编码:</label>
+			   <div class="col-sm-7 text" id="query_dbCharset">
+			   </div>
+			</div>
+			<div class="form-group">
+			   <label class="col-sm-3 control-label">初始化连接数:</label>
+			   <div class="col-sm-7 text" id="query_initialPoolSize">
+			   </div>
+			</div>
+			<div class="form-group">
+			   <label class="col-sm-3 control-label">最大连接数:</label>
+			   <div class="col-sm-7 text" id="query_maxPoolSize">
+			   </div>
+			</div>
+			<div class="form-group">
+			   <label class="col-sm-3 control-label">最大空闲时间(s):</label>
+			   <div class="col-sm-7 text" id="query_maxIdleTime">
+			   </div>
+			</div>
+		 </form>
+	</div>
+</div>
+	<script type="text/javascript">
+	 // var globalJs = new GlobalJs("/dmp");
+	 // globalJs.init();
+	 
+	 $(function() {
+	      var contentH = $(".main-box").height() - $(".tool-btn").height() - $(".tool-info").height()
+                         - $("#footer").height();
+          $("#table-content").height(contentH - 45 - 4);
+          
+	      loadContent();
+	      
+	      $("#sourceAdd-form").validation();
+	      $("#sourceMod-form").validation();
+	      
+	      $("#add_dbType").change(function() {
+	    	  var dbType = $(this).val();
+	    	  if(dbType == "mysql") {
+	    		  $("#add_url").val("localhost");
+	    		  $("#add_port").val(3306);
+	    		  $("#add_dbName").val("");
+	    	  } else if(dbType == "oracle") {
+	    		  $("#add_url").val("localhost");
+	    		  $("#add_port").val(1521);
+	    		  $("#add_dbName").val("orcl");
+	    	  } else if(dbType == "db2") {
+	    		  $("#add_url").val("localhost");
+	    		  $("#add_port").val(50000);
+	    		  $("#add_dbName").val("");
+	    	  } else if(dbType == "SQLServer") {
+	    		  $("#add_url").val("localhost");
+	    		  $("#add_port").val(1433);
+	    		  $("#add_dbName").val("");
+	    	  } else if(dbType == "sybase") {
+	    		  $("#add_url").val("localhost");
+	    		  $("#add_port").val(5000);
+	    		  $("#add_dbName").val("");
+	    	  } else if(dbType == "PostgreSQL") {
+	    		  $("#add_url").val("localhost");
+	    		  $("#add_port").val(5432);
+	    		  $("#add_dbName").val("");
+	    	  }
+	      });
+	      
+		  $("#icon-add-source").click(function() {
+		  
+		       resetForm($("#sourceAdd-form"));
+		       $('#add_dbType').selectpicker('val', "mysql");
+		       $("#add_url").val("localhost");
+	    	   $("#add_port").val(3306);
+	    	   $("#add_initialPoolSize").val(10);
+	    	   $("#add_maxPoolSize").val(100);
+	    	   $("#add_maxIdleTime").val(3600);
+		       
+		       $("#sourceAddAdd-form").validation();
+		       
+		       var index = layer.open({
+					type: 1, 
+					title: '新增数据源',
+				    shadeClose: true,
+				    zIndex: 1025,
+				    area: ['740px', '500px'],
+					content: $("#sourceAdd"),
+					btn: ['确定', '取消'],
+					yes:function(index) {
+					   
+				       if ($("#sourceAdd-form").valid(this)==false){
+						   return false;
+					   }
+					   var ldIndex = layer.load(2, {shade: [0.5,'#fff']});
+					
+					   var jsonData = {};
+					   jsonData["name"] = $("#add_name").val();
+					   jsonData["dbType"] = $("#add_dbType").val();
+					   jsonData["url"] = $("#add_url").val();
+					   jsonData["port"] = $("#add_port").val();
+					   jsonData["dbName"] = $("#add_dbName").val();
+					   jsonData["username"] = $("#add_username").val();
+					   jsonData["password"] = $("#add_password").val();
+					   jsonData["initialPoolSize"] = $("#add_initialPoolSize").val();
+					   jsonData["maxPoolSize"] = $("#add_maxPoolSize").val();
+					   jsonData["maxIdleTime"] = $("#add_maxIdleTime").val();
+					   jsonData["dbCharset"] = $("#add_dbCharset").val();
+					   
+				       $.ajax({
+						   type: "POST",
+						   url: "./php/addsource.php",
+						   data: jsonData,
+						   dataType : "json",
+						   success: function(result){
+						     layer.close(ldIndex);
+						     var code = result.code;
+						     if(code == 0) {
+						    	 layer.close(index);
+							     loadContent();
+						     } else if(code == 3) {
+						    	 layer.alert('数据源名称已存在，请使用其它名称!', {icon: 2});
+						     } else {
+						    	 layer.alert('数据源新增出现错误:' + result.errorMsg, {icon: 2});
+						     }
+						   },
+						   error:function() {
+						      layer.close(ldIndex);
+						      layer.alert('该数据库无法使用，请正确填写!', {icon: 2});
+						   }
+					   });
+					},
+					cancel:function() {
+					   $("#sourceAdd-form").validation();
+					   resetForm($("#sourceAdd-form"));
+					   $('#add_dbType').selectpicker('val', "mysql");
+					}
+				});
+		   });
+		});
+	 
+	  $("#mod_dbType").change(function() {
+	   	  var dbType = $(this).val();
+	   	  if(dbType == "mysql") {
+	   		  $("#mod_url").val("localhost");
+	   		  $("#mod_port").val(3306);
+	   		  $("#mod_dbName").val("");
+	   	  } else if(dbType == "oracle") {
+	   		  $("#mod_url").val("localhost");
+	   		  $("#mod_port").val(1521);
+	   		  $("#mod_dbName").val("orcl");
+	   	  } else if(dbType == "db2") {
+	   		  $("#mod_url").val("localhost");
+	   		  $("#mod_port").val(50000);
+	   		  $("#mod_dbName").val("");
+	   	  } else if(dbType == "SQLServer") {
+	   		  $("#mod_url").val("localhost");
+	   		  $("#mod_port").val(1433);
+	   		  $("#mod_dbName").val("");
+	   	  } else if(dbType == "sybase") {
+    		  $("#add_url").val("localhost");
+    		  $("#add_port").val(5000);
+    		  $("#add_dbName").val("");
+    	  } else if(dbType == "PostgreSQL") {
+    		  $("#add_url").val("localhost");
+    		  $("#add_port").val(5432);
+    		  $("#add_dbName").val("");
+    	  }
+	    });
+		
+		 //mod
+	    function modSource(id) {
+	      
+		   resetForm($("#sourceMod-form"));
+		   $("#sourceMod-form").validation();
+		   
+		   $.ajax({
+			   type: "POST",
+			   url: "./php/querySource.php",
+			   data: {id:id},
+			   dataType : "json",
+			   async: false,
+			   success: function(source){
+				  $("#mod_id").val(source.id);
+			      $("#mod_sourceName").val(source.name);
+			      $("#mod_name").val(source.name);
+			      $('#mod_dbType').selectpicker('val', source.dbType);
+			      $("#mod_url").val(source.url);
+			      if(source.port != 0) {
+			    	  $("#mod_port").val(source.port);
+			      }
+			      $("#mod_dbName").val(source.dbName);
+			      $("#mod_username").val(source.username);
+			      $("#mod_password").val(source.password);
+			      $("#mod_initialPoolSize").val(source.initialPoolSize);
+			      $("#mod_maxPoolSize").val(source.maxPoolSize);
+			      $("#mod_maxIdleTime").val(source.maxIdleTime);
+			      $("#mod_dbCharset").selectpicker('val', source.dbCharset);
+			   },
+			   error:function() {
+			      layer.alert('数据源查询出现错误!', {icon: 2});
+			   }
+		   });
+		   layer.open({
+				type: 1,
+				title: '编辑数据源',
+			    shadeClose: true,
+			    zIndex: 1025,
+			    area: ['740px', '500px'],
+				content: $("#sourceMod"),
+				btn: ['确定', '取消'],
+				yes:function(index) {
+			       if ($("#sourceMod-form").valid(this)==false){
+					   return false;
+				   }
+				   var ldIndex = layer.load(2, {shade: [0.5,'#fff']});
+				
+				   var jsonData = {};
+				   jsonData["id"] = $("#mod_id").val();
+				   jsonData["name"] = $("#mod_name").val();
+				   jsonData["dbType"] = $("#mod_dbType").val();
+				   jsonData["url"] = $("#mod_url").val();
+				   jsonData["port"] = $("#mod_port").val();
+				   jsonData["dbName"] = $("#mod_dbName").val();
+				   jsonData["username"] = $("#mod_username").val();
+				   jsonData["password"] = $("#mod_password").val();
+				   jsonData["initialPoolSize"] = $("#mod_initialPoolSize").val();
+				   jsonData["maxPoolSize"] = $("#mod_maxPoolSize").val();
+				   jsonData["maxIdleTime"] = $("#mod_maxIdleTime").val();
+				   jsonData["dbCharset"] = $("#mod_dbCharset").val();
+					   
+			       $.ajax({
+					   type: "POST",
+					   url: "./php/updatesource.php",
+					   data: jsonData,
+					   dataType : "json",
+					   success: function(result){
+						 var code = result.code;
+					     layer.close(ldIndex);
+					     if(code == 0) {
+					    	 layer.close(index);
+						     loadContent();
+					     } else if(code == 3) {
+					    	 layer.alert('数据源名称已存在，请使用其它名称!', {icon: 2});
+					     } else {
+					    	 layer.alert('数据源编辑出现错误:' + result.errorMsg, {icon: 2});
+					     }
+					   },
+					   error:function() {
+					      layer.close(ldIndex);
+					      layer.alert('数据源编辑出现错误!', {icon: 2});
+					   }
+				   });
+				}
+		     });
+	    }
+		
+		function querySource(id) {
+		   $.ajax({
+			   type: "POST",
+			   url: "./php/querySource.php",
+			   data: {id:id},
+			   dataType : "json",
+			   async: false,
+			   success: function(source){
+			      $("#query_name").html(source.name);
+			      $("#query_dbType").html(source.dbType);
+			      $("#query_url").html(source.url);
+			      if(source.port != 0) {
+			    	  $("#query_port").html(source.port);
+			      }
+			      $("#query_dbName").html(source.dbName);
+			      $("#query_username").html(source.username);
+			      $("#query_password").html(source.password);
+			      $("#query_initialPoolSize").html(source.initialPoolSize);
+			      $("#query_maxPoolSize").html(source.maxPoolSize);
+			      $("#query_maxIdleTime").html(source.maxIdleTime);
+			      $("#query_dbCharset").html(source.dbCharset);
+			   },
+			   error:function() {
+			      layer.alert('数据源查询出现错误!', {icon: 2});
+			   }
+		   });
+		   layer.open({
+				type: 1, 
+				title: '数据源详情',
+			    shadeClose: true,
+			    area: ['650px', '400px'],
+				content: $("#sourceView")
+		   });
+		}
+		
+		function delSource(name) {
+		    layer.confirm('您确定删除该数据源?', {icon: 3, title:'提示'}, function(index){	
+	           layer.close(index);
+	           $.ajax({
+				   type: "POST",
+				   url: "./php/delsource.php",
+				   data: {name:name},
+				   dataType : "json",
+				   success: function(suc){
+				     if(!suc) {
+				        layer.alert('数据源删除出现错误!', {icon: 2});
+				     } else {
+				        loadContent();
+				     }
+				   },
+				   error:function() {
+				       layer.alert('数据源删除出现错误!', {icon: 2});
+				   }
+			   });	
+		    });
+		}
+		
+		
+	   function loadContent() {
+	      $.ajax({
+	         type: "POST",
+	         url: "./php/sourcelist.php",
+	         dataType: "json",
+	         success:function(result){
+				$("table>tbody").empty();
+	           $.each(result["data"],function(n,value){
+					var tr = $("<tr>");
+					$.each(value,function(n,v){
+						if(n!="id"){
+							$(tr).append($("<td>").text(v));
+						}
+					})
+					var div =$("<div class='tool-a'>").append('<a href="javascript:void(0)" title="编辑数据源" style="margin-right:10px;" onclick="modSource('+value["id"]+')"><i class="icon iconfont icon-mod blue icon-size-16"></i></a>')
+					.append('<a href="javascript:void(0)" title="删除数据源" style="margin-right:10px;" onclick="delSource(\''+value["name"]+'\')"><i class="icon iconfont icon-del red icon-size-16"></i></a>')
+					.append('<a href="javascript:void(0)" title="查看数据源" onclick="querySource('+value["id"]+')"><i class="icon iconfont icon-search icon-search orange icon-size-16"></i></a>');
+					$(tr).append($("<td>").append(div));
+					$(tr).appendTo("table>tbody");
+			   })
+	         }
+          });
+	   }
+	</script>
+</body>
+</html>

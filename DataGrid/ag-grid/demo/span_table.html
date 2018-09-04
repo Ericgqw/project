@@ -1,0 +1,71 @@
+
+<!--列跨越-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script> var __basePath = ''; </script>
+<style> html, body { margin: 0; padding: 0; height: 100%; } 
+  .ag-body [col-id='country'] { background-color: #a6e1ec;}
+</style>
+    <script src="js/ag-grid.min.js"></script>    
+	
+</head>
+<body>
+
+<div id="myGrid" class="ag-theme-balham" style="height: 100%;"></div>
+    <script>
+	var columnDefs = [
+    {headerName: 'Athlete', field: 'athlete', pinned: 'left',lockPinned: true, cellClass: 'lock-pinned'},   //通过配置固定并具有lockPinned=true。这意味着该列将始终固定，无法将该列拖出固定部分
+    {headerName: 'Age', field: 'age', lockPinned: true, cellClass: 'lock-pinned'},
+    {
+        headerName: 'Country',
+        field: 'country',
+        colSpan: function(params) {
+            var country = params.data.country;
+            if (country === 'Russia') {
+                // have all Russia age columns width 2
+                return 2;
+            } else if (country === 'United States') {
+                // have all United States column width 4
+                return 4;
+            } else {
+                // all other rows should be just normal
+                return 1;
+            }
+        }
+    },
+    {headerName: 'Year', field: 'year'},
+    {headerName: 'Date', field: 'date'},
+    {headerName: 'Sport', field: 'sport'},
+    {headerName: 'Gold', field: 'gold'},
+    {headerName: 'Silver', field: 'silver'},
+    {headerName: 'Bronze', field: 'bronze'},
+    {headerName: 'Total', field: 'total'}
+];
+
+var gridOptions = {
+    columnDefs: columnDefs,
+    enableColResize: true,
+	rowHeight:50,   //行高
+	pagination: true,  //分页
+    defaultColDef: {
+        width: 100
+    }
+};
+
+// setup the grid after the page has finished loading
+document.addEventListener('DOMContentLoaded', function() {
+    var gridDiv = document.querySelector('#myGrid');
+    new agGrid.Grid(gridDiv, gridOptions);
+
+    // do http request to get our sample data - not using any framework to keep the example self contained.
+    // you will probably use a framework like JQuery, Angular or something else to do your HTTP calls.
+    agGrid.simpleHttpRequest({url: 'https://raw.githubusercontent.com/ag-grid/ag-grid-docs/master/src/olympicWinnersSmall.json'}).then(function(data) {
+        gridOptions.api.setRowData(data);
+    });
+});
+	
+	</script>
+</body>
+</html>

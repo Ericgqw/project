@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,Chrome=1" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+
+    <title>销售情况报表</title>
+    
+    <link href="css/bootstrap.min.css" rel="stylesheet" />
+	<link href="css/iconfont/iconfont.css" rel="stylesheet">
+	<link href="css/bootstrap-select.css" rel="stylesheet">
+	<link href="css/metroStyle/metroStyle.css" rel="stylesheet">
+	<link href="css/green.css" rel="stylesheet">
+	<link href="css/webuploader.css" rel="stylesheet">
+	<link href="css/simplebar.css" rel="stylesheet">
+	<link href="css/style.css" rel="stylesheet">
+   
+	<script src="js/jquery-1.11.3.min.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+	<script src="js/jquery.bootpag.min.js"></script>
+	<script src="js/layer/laydate/laydate.js"></script>
+	<script src="js/bootstrap-select.min.js"></script>
+	<script src="js/jquery.ztree.all-3.5.min.js"></script>
+	<script src="js/icheck.min.js"></script>
+	<script src="js/layer/layer.js"></script>
+	<script src="js/simplebar.js"></script>
+	<script src="js/dms.js"></script>
+
+	<script src="js/summernote.min.js"></script>
+	<script src="form/printer.js"></script>
+
+	<script src="js/swfobject.js"></script>
+	<script src="js/svg.js"></script>
+	<script src="js/base64.min.js"></script>
+	<script src="js/echarts.min.js"></script>
+	<script src="js/echarts-wordcloud.min.js"></script>
+	<script src="js/customed.js"></script>
+	<script src="js/china.js"></script>
+	<script src="js/world.js"></script>
+	<script src="js/chart.adaptor.js"></script>
+	<script src="report/js/report.js"></script>
+	<script src="report/js/reportList.js"></script>
+	<script src="report/js/jquery.treetable.js"></script>
+    
+</head>
+<body style="background:#f1f4f7;"> 
+ 
+    <div id="contentDiv" class="panel-ct panel-ct-no"> 
+            <div id="dv">
+			</div>
+		    <table id="tg" class="tg" cellspacing="0" cellpadding="0" style="border-collapse:collapse;width:984px;" ow="984"><colgroup>
+			<col  style="width:28px" ow="28"></col>
+			<col  style="width:106px" ow="106"></col>
+			<col  style="width:109px" ow="109"></col>
+			<col  style="width:43px" ow="43"></col>
+			<col  style="width:103px" ow="103"></col>
+			<col  style="width:99px" ow="99"></col>
+			<col  style="width:37px" ow="37"></col>
+			<col  style="width:112px" ow="112"></col>
+			<col  style="width:95px" ow="95"></col>
+			<col  style="width:49px" ow="49"></col>
+			<col  style="width:100px" ow="100"></col>
+			<col  style="width:103px" ow="103"></col>
+			</colgroup>
+			<tr style="height:26px;" oh="26">
+			<td id="0_0" rowspan="1" colspan="1" style="vertical-align:top;" ></td>
+			<td id="0_1" rowspan="1" colspan="2" style="font-size:20px;background:#a992e2;color:#ffffff;vertical-align:middle;text-align:center;" >2545</td>
+			<td id="0_3" rowspan="1" colspan="1" style="vertical-align:top;" ></td>
+			<td id="0_4" rowspan="1" colspan="2" style="font-size:20px;background:#55badf;color:#ffffff;vertical-align:middle;text-align:center;" >78932</td>
+			<td id="0_6" rowspan="1" colspan="1" style="vertical-align:top;" ></td>
+			<td id="0_7" rowspan="1" colspan="2" style="font-size:20px;background:#ec6f5a;color:#ffffff;vertical-align:middle;text-align:center;" >2389010</td>
+			<td id="0_9" rowspan="1" colspan="1" style="vertical-align:top;" ></td>
+			<td id="0_10" rowspan="1" colspan="2" style="font-size:20px;background:#f7c65f;color:#ffffff;vertical-align:middle;text-align:center;" >45689</td></tr>
+			<tr style="height:49px;" oh="49"><td id="1_0" rowspan="1" colspan="1" style="vertical-align:top;" ></td>
+			<td id="1_1" rowspan="1" colspan="2" style="font-size:14px;background:#a992e2;color:#ffffff;vertical-align:middle;text-align:center;" >新增客户数</td>
+			<td id="1_3" rowspan="1" colspan="1" style="vertical-align:top;" ></td>
+			<td id="1_4" rowspan="1" colspan="2" style="font-size:14px;background:#55badf;color:#ffffff;vertical-align:middle;text-align:center;" >新增订单数</td>
+			<td id="1_6" rowspan="1" colspan="1" style="vertical-align:top;" ></td>
+			<td id="1_7" rowspan="1" colspan="2" style="font-size:14px;background:#ec6f5a;color:#ffffff;vertical-align:middle;text-align:center;" >销售额</td>
+			<td id="1_9" rowspan="1" colspan="1" style="vertical-align:top;" ></td>
+			<td id="1_10" rowspan="1" colspan="2" style="font-size:14px;background:#f7c65f;color:#ffffff;vertical-align:middle;text-align:center;" >潜在客户数</td>
+			</tr>
+			</table>
+			<div class="panel-st panel-st-rpt divclass" style="position:absolute;align:center;width:329px;left:665px;top:97px;"title="区域销售完成">
+			<div id="1" class="panel-body-st" style="height:311px;overflow:auto;">
+			<div id="chart_1">
+			<script type="text/javascript">chart.draw(eval('('+'{"chart":{"type":"percentbar","width":289,"height":301},"series":[{"data":[{"name":"苏州","value":21,"total":34.854},{"name":"南京","value":10.89,"total":23.8},{"name":"上海","value":20.3,"total":29.82},{"name":"北京","value":3.89,"total":25},{"name":"深圳","value":27.93,"total":28.7409},{"name":"天津","value":18.05,"total":25.3},{"name":"其他","value":4.92,"total":20.4}]}]}'+')'),'chart_1')</script>
+			</div>
+			</div>
+			</div>
+			<div class="panel-st panel-st-rpt divclass" style="position:absolute;align:center;width:619px;left:30px;top:97px;"title="部门销售TOP10">
+			<div id="2" class="panel-body-st" style="height:312px;overflow:auto;">
+			<table id="tg" class="tg" cellspacing="0" cellpadding="0" style="border-collapse:collapse;width:614px;" ow="614"><colgroup>
+			<col  style="width:363px" ow="363"></col>
+			<col  style="width:47px" ow="47"></col>
+			<col  style="width:103px" ow="103"></col>
+			<col  style="width:101px" ow="101"></col>
+			</colgroup>
+			<tr style="height:31px;" oh="31"><td id="0_0" rowspan="10" colspan="1" style="vertical-align:top;color:#000000;" >
+			<div id="chart_2_0_0">
+			<script type="text/javascript">chart.draw(eval('('+'{"chart":{"type":"pie","width":350,"height":300},"series":[{"name":"销售额","label":{"enabled":false},"data":[{"name":"销售(1)部","value":1147600},{"name":"销售(2)部","value":1155000},{"name":"销售(3)部","value":1069500}]}]}'+')'),'chart_2_0_0')</script>
+			</div>
+			</td>
+			<td id="0_1" rowspan="1" colspan="1" style="background:#fb9678;color:#ffffff;vertical-align:middle;text-align:center;" >1</td>
+			<td id="0_2" rowspan="1" colspan="1" style="background:#fb9678;color:#ffffff;vertical-align:middle;text-align:center;" >唐艳霞</td>
+			<td id="0_3" rowspan="1" colspan="1" style="background:#fb9678;color:#ffffff;vertical-align:middle;text-align:center;" >97500</td></tr>
+			<tr style="height:31px;" oh="31">
+			<td id="1_1" rowspan="1" colspan="1" style="background:#fb9678;color:#ffffff;vertical-align:middle;text-align:center;" >2</td>
+			<td id="1_2" rowspan="1" colspan="1" style="background:#fb9678;color:#ffffff;vertical-align:middle;text-align:center;" >刘大为</td>
+			<td id="1_3" rowspan="1" colspan="1" style="background:#fb9678;color:#ffffff;vertical-align:middle;text-align:center;" >96500</td></tr>
+			<tr style="height:31px;" oh="31">
+			<td id="2_1" rowspan="1" colspan="1" style="background:#fb9678;color:#ffffff;vertical-align:middle;text-align:center;" >3</td>
+			<td id="2_2" rowspan="1" colspan="1" style="background:#fb9678;color:#ffffff;vertical-align:middle;text-align:center;" >杜乐</td>
+			<td id="2_3" rowspan="1" colspan="1" style="background:#fb9678;color:#ffffff;vertical-align:middle;text-align:center;" >96000</td></tr>
+			<tr style="height:31px;" oh="31">
+			<td id="3_1" rowspan="1" colspan="1" style="background:#fb9678;color:#ffffff;vertical-align:middle;text-align:center;" >4</td>
+			<td id="3_2" rowspan="1" colspan="1" style="background:#fb9678;color:#ffffff;vertical-align:middle;text-align:center;" >李诗诗</td>
+			<td id="3_3" rowspan="1" colspan="1" style="background:#fb9678;color:#ffffff;vertical-align:middle;text-align:center;" >93050</td></tr>
+			<tr style="height:31px;" oh="31">
+			<td id="4_1" rowspan="1" colspan="1" style="background:#fb9678;color:#ffffff;vertical-align:middle;text-align:center;" >5</td>
+			<td id="4_2" rowspan="1" colspan="1" style="background:#fb9678;color:#ffffff;vertical-align:middle;text-align:center;" >张红军</td>
+			<td id="4_3" rowspan="1" colspan="1" style="background:#fb9678;color:#ffffff;vertical-align:middle;text-align:center;" >93000</td></tr>
+			<tr style="height:31px;" oh="31">
+			<td id="5_1" rowspan="1" colspan="1" style="background:#fb9678;color:#ffffff;vertical-align:middle;text-align:center;" >6</td>
+			<td id="5_2" rowspan="1" colspan="1" style="background:#fb9678;color:#ffffff;vertical-align:middle;text-align:center;" >李成</td>
+			<td id="5_3" rowspan="1" colspan="1" style="background:#fb9678;color:#ffffff;vertical-align:middle;text-align:center;" >92000</td></tr>
+			<tr style="height:31px;" oh="31">
+			<td id="6_1" rowspan="1" colspan="1" style="background:#fb9678;color:#ffffff;vertical-align:middle;text-align:center;" >7</td>
+			<td id="6_2" rowspan="1" colspan="1" style="background:#fb9678;color:#ffffff;vertical-align:middle;text-align:center;" >杜月红</td>
+			<td id="6_3" rowspan="1" colspan="1" style="background:#fb9678;color:#ffffff;vertical-align:middle;text-align:center;" >88000</td></tr>
+			<tr style="height:31px;" oh="31">
+			<td id="7_1" rowspan="1" colspan="1" style="background:#fb9678;color:#ffffff;vertical-align:middle;text-align:center;" >8</td>
+			<td id="7_2" rowspan="1" colspan="1" style="background:#fb9678;color:#ffffff;vertical-align:middle;text-align:center;" >李佳</td>
+			<td id="7_3" rowspan="1" colspan="1" style="background:#fb9678;color:#ffffff;vertical-align:middle;text-align:center;" >87500</td></tr>
+			<tr style="height:31px;" oh="31">
+			<td id="8_1" rowspan="1" colspan="1" style="background:#fb9678;color:#ffffff;vertical-align:middle;text-align:center;" >9</td>
+			<td id="8_2" rowspan="1" colspan="1" style="background:#fb9678;color:#ffffff;vertical-align:middle;text-align:center;" >卢红燕</td>
+			<td id="8_3" rowspan="1" colspan="1" style="background:#fb9678;color:#ffffff;vertical-align:middle;text-align:center;" >84500</td></tr>
+			<tr style="height:31px;" oh="31">
+			<td id="9_1" rowspan="1" colspan="1" style="background:#fb9678;color:#ffffff;vertical-align:middle;text-align:center;" >10</td>
+			<td id="9_2" rowspan="1" colspan="1" style="background:#fb9678;color:#ffffff;vertical-align:middle;text-align:center;" >张成</td>
+			<td id="9_3" rowspan="1" colspan="1" style="background:#fb9678;color:#ffffff;vertical-align:middle;text-align:center;" >82500</td>
+			</tr>
+			</table>
+			</div>
+			</div>
+			<div class="panel-st panel-st-rpt divclass" style="position:absolute;align:center;width:619px;left:28px;top:455px;"title="区域销售额">
+			<div id="3" class="panel-body-st" style="height:264px;overflow:auto;">
+			<div id="chart_3">
+			<script type="text/javascript">chart.draw(eval('('+'{"chart":{"type":"columnLine","width":579,"height":254},"tooltip":{"format":"0.0%"},"series":[{"name":"销售额","type":"column","label":{"format":"#.##"},"data":[34.854,23.8,29.82,25,28.7409,25.3,20.4]},{"name":"新增销售额","type":"column","label":{"format":"#.##"},"data":[21,10.89,20.3,3.89,27.93,18.05,4.92]},{"name":"增长率","type":"line","yAxis":1,"label":{"enabled":true,"format":"0.0%"},"data":[0.0123,0.034,0.056,0.012,0.057,0.0126,0.0678]}],"xAxis":{"data":["苏州","南京","上海","北京","深圳","天津","其他"],"type":"category","lineColor":"#C0D0E0","splitLineEnabled":true},"yAxis":[{"type":"number","lineColor":"#C0D0E0","splitLineEnabled":true},{"data":["苏州","南京","上海","北京","深圳","天津","其他"],"type":"number","lineColor":"#C0D0E0","splitLineEnabled":true,"label":{"format":"0%"}}]}'+')'),'chart_3')</script>
+			</div>
+			</div>
+			</div>
+			<div class="panel-st panel-st-rpt divclass" style="position:absolute;align:center;width:334px;left:665px;top:455px;"title="">
+			<div id="4" class="panel-body-st" style="height:264px;overflow:auto;">
+			<div id="chart_4">
+			<script type="text/javascript">chart.draw(eval('('+'{"chart":{"type":"funnel","width":294,"height":254,"layout":"up"},"series":[{"name":"销售额","data":[{"name":"苏州","value":34.854},{"name":"南京","value":23.8},{"name":"上海","value":29.82},{"name":"北京","value":25},{"name":"深圳","value":28.7409},{"name":"天津","value":25.3},{"name":"其他","value":20.4}]}]}'+')'),'chart_4')</script>
+			</div>
+			</div>
+			</div>
+			<div class="panel-st panel-st-rpt divclass" style="position:absolute;align:center;width:972px;left:30px;top:765px;"title="销售完成比例">
+			<div id="5" class="panel-body-st" style="height:224px;overflow:auto;">
+			<div id="chart_5">
+			<script type="text/javascript">chart.draw(eval('('+'{"chart":{"type":"percentdonut","width":932,"height":214},"series":[{"data":[{"name":"苏州","value":21,"total":34.854},{"name":"南京","value":10.89,"total":23.8},{"name":"上海","value":20.3,"total":29.82},{"name":"北京","value":3.89,"total":25},{"name":"深圳","value":27.93,"total":28.7409},{"name":"天津","value":18.05,"total":25.3},{"name":"其他","value":4.92,"total":20.4}]}]}'+')'),'chart_5')</script>
+			</div>
+			</div>
+			</div>	    
+		</div>
+</div>
+   <script src="js/anyrt.js"></script>
+	<script type="text/javascript">
+		var report = new Report("/dmp", '');
+		report.loadMode = "0";
+		report.initReport();
+		window.report = report;
+		
+		window.anyrt = new AnyRt("/dmp");
+		var reportList = new ReportList("", "", "0");
+        reportList.fixedCell(parseInt("-1"),parseInt("-1"));
+        reportList.init();
+		function doResize() {
+			var contentH = $("body").height() - $(".page-condition").height()
+	        - $(".page-menu").height() - 25;
+	       $("#table-content").height(contentH);
+	       
+	       if(reportList) {
+	       	   reportList.resize();
+	       }
+		}
+		
+	  var resizeTimer = null; 
+	  $(window).resize(function() {
+		  if (resizeTimer) clearTimeout(resizeTimer); 
+		    resizeTimer = setTimeout("doResize()", 300); 
+	   });
+	</script>
+
+	
+	
+</body>
+</html>

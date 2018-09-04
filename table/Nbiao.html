@@ -1,0 +1,214 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>KOIDE</title>
+<script type="text/javascript" src="js/jquery-1.7.2.min.js"></script>
+<script type="text/javascript" src="js/yanzheng.js"></script>
+<style type="text/css">
+    div.groove400 {border-style: groove;width:950px;height:320px;}
+	div.groove300 {border-style: groove;width:950px;height:270px;}
+	div.groove200 {border-style: groove;width:950px;height:180px;}
+	div.end{border-style: groove;width:10px;height:120px;}
+	.left{width:50%;float:left}
+	.right{width:50%;float:right}
+</style>
+</head>
+<body >
+  <button type="submit" id="btn_select" name="btn_select"> 查询 </button>
+		 <script>
+        $('#btn_select').click(function(){
+   		  $.ajax({ url: "php/getdatas.php", 
+		  context: document.body, 
+		  dateType:"json",
+		  success: function(data){
+			 var data_json=JSON.parse(data)
+			 $("#send_person").val(data_json["Sender"]);
+			 $("input:checkbox[value='"+data_json["Purchase_place"]+"']").attr('checked','true');
+           },
+		   error:function(){
+		      alert("访问php页面发生错误");
+		   }
+		   });
+		   });   
+  		  </script>  
+  <div style="margin: 0 auto; width: 1050px; height: 1490px; border: 1px solid #000;">
+   <br> 
+         <form action="php/storage.php" method="post" style="font-size:18px;margin-left:50px">
+		<span style="font-size:30px"> PRS表格</span>     
+		<span style="font-size:20px;padding:60px 30px 50px 600px"> PRS表</span>
+		<span style="font-size:50px;font-weight:bold">N</span>
+		<br>
+		<span style="font-size:25px;margin-left:80px">非生產物料/樣辨物料要求表(PRS)</span>
+		<span style="font-size:18px;margin-left:170px">PRS表格編號:</span>
+        <input type="text" name="excelid" id="excelid"/>
+		<br >
+		 <br />    
+        <label><input name="buy_hk" type="checkbox" value="經香港購買"/>經香港購買</label>&nbsp;&nbsp;&nbsp;
+		<label><input name="buy_sd" type="checkbox" value="經順德購買 "/>經順德購買</label> 
+         <span style="font-size:18px;padding:10px 2px 15px 395px">財務處編號:</span>
+         <input type="text" name="caiwuid" id="caiwuid"/>
+         <br /> 
+		 <br/>      
+		 <label>提出部門：</label>
+        <label><input name="rd_dept" type="checkbox" value=" R&D "/>R&D </label>
+		<label><input name="admin_dept" type="checkbox" value="行政部 "/>行政部</label>
+		 <label><input name="engineer_dept" type="checkbox" value="工程部 "/>工程部</label>
+		  <label><input name="others" type="checkbox" value="其他 "/>其他</label>
+		   <input type="text" name="tichudept" id="tichudept"/>
+         <span style="font-size:18px;padding:10px 0px 15px 100px">部門編號:</span>
+         <input type="text" name="deptd" id="deptid"/>
+		<br />
+		<br />
+		 <span>發件人： </span>
+		  <input type="text" name="send_person" id="send_person"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		  <span>提出日期： </span>
+		  <input type="text" name="send_date" id="send_date"/>   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		  <span>要求完成日期: </span>
+		  <input type="text" name="allow_date" id="allow_date"/>
+		<br />
+		<br />
+		<span style="font-size:18px">未登錄PRD系統的物品請填寫下欄</span><br>
+		<div class="groove400" >
+		 <span style="font-size:18px;padding:5px 5px 10px 20px">有否指定供應商/製造商</span> <br><br>   
+		   <label><input name="no" type="checkbox" value="沒有 "/>沒有</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		   <label><input name="yes" type="checkbox" value=" 有請填寫以下供應商資料"/>有請填寫以下供應商資料</label>
+		   <br>
+		   <br>
+		   <span style="font-size:18px">供應商名稱:</span>
+		    <input style="width:300px" type="text" name="product_name" id="produce_name" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			 <span style="font-size:18px;margin-left:30px" >聯絡人:</span>
+		    <input style="width:300px" type="text" name="conn_name" id="conn_name" />&nbsp;
+			<br>
+			<br>
+			  <span style="font-size:18px;margin-left:55px" >地址:</span>
+		    <input style="width:775px" type="text" name="address" id="address" />&nbsp;
+		    <br />
+		    <br />
+		    <span style="font-size:18px;margin-left:55px">電話:</span>
+		    <input style="width:300px" type="text" name="phone" id="phone" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			 <span style="font-size:18px;margin-left:45px" >手機:</span>
+		    <input style="width:300px" type="text" name="mobilephone" id="mobilephone" />&nbsp;	
+		     <br>
+		     <br>
+		     <span style="font-size:18px;margin-left:55px">傳真:</span>
+		    <input style="width:300px" type="text" name="fax" id="fax" />
+		     <span style="font-size:18px;margin-left:100px">E-mail:</span>
+		    <input style="width:300px" type="text" name="email" id="email" />
+			<br>
+			<br>
+			 <label><input name="no_product" type="checkbox" value="不指定供應商/製造商 "/>不指定供應商/製造商</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp
+		   <label><input name="yes_product" type="checkbox" value="附供應商報價/單價 "/>附供應商報價/單價</label>
+		   <input  type="text" name="price" id="price" />&nbsp;&nbsp;&nbsp;
+		   <span style="font-size:18px;margin-left:70px">貨幣</span>
+		    <input  type="text" name="money" id="money" />
+      </div>
+	  <br />
+	   	<span style="font-size:18px">物品規格型號</span><br>
+		<div class="groove200" >
+		  <span style="font-size:18px;padding:5px 5px 10px 20px">有否指定特定規格型號</span> <br><br>  
+		     
+			 <label><input name="num" type="checkbox" value=" 有型號名稱"/>有型號名稱：</label>
+			 <input style="width:400px" type="text" name="name_num" id="name_num" />
+			  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			  <label>附加資料：</label>
+			 <input style="width:200px" type="text" name="extra_data" id="extra_data" />
+			 <br>
+			 <br>
+			  <label><input name="null" type="checkbox" value="沒有 "/>沒有</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			   <label><input name="extra1" type="checkbox" value="附樣辨 "/>附樣辨</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			    <label><input name="extra2" type="checkbox" value=" 附照片"/>附照片</label>
+		      <label><input style="margin-left:40px" name="guige" type="checkbox" value="規格 "/>規格</label>
+		      <label><input style="margin-left:50px" name="note" type="checkbox" value=" 說明"/>說明</label>&nbsp;
+			   <input style="width:380px" type="text" name="note_text" id="note_text" />
+			  <br />
+			  <br />
+			   <label><input name="ask_num" type="checkbox" value="要求數量"/>要求數量：</label>
+			 <input type="text" name="ask_num_text" id="ask_num_text" />
+			  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			  <label>單位：</label>
+			 <input stype="text" name="danwei" id="danwei" />		
+		</div>
+		<br />
+		<span style="font-size">物品用途</span><br>
+		<div class="groove300" >	
+		  <label><input name="use1" type="checkbox" value="產品物料樣板請填寫下表 "/>產品物料樣板請填寫下表</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			   <label><input name="use2" type="checkbox" value="專用協助產品生產用請填寫下表 "/>專用協助產品生產用請填寫下表</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			    <label><input name="use3" type="checkbox" value="通用協助產品生產用 "/>通用協助產品生產用</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		 	 <br>
+			 <br>
+			 <div  style="width:50%;float:left">
+			 <span style="margin-left:18px">生產計劃名稱:</span>
+			 <input style="width:250px" type="text" name="product_project_name" id="product_project_name" />
+			 <br /><br />
+			  <span style="margin-left:18px">生產產品型號:</span>
+			 <input style="width:250px" type="text" name="product_number" id="product_number" />
+			 <br /><br />
+			  <span style="margin-left:18px;margin-left:55px">計劃產量:</span>
+			 <input style="width:250px" type="text" name="plan_num" id="plan_num" />
+			 </div>
+			 <div style="width:50%;float:right">
+			      <lable>其他用途</label><br />
+				  <textArea name="otheruse" border="1" style="width:450px;height:99px;font-size:18px">
+				        
+				  </textArea>
+			 </div>
+			<br />
+			<br /><br /><br /></br></br>		
+			 <span>物品類別：</span>
+			  <label><input name="thing1" type="checkbox" value="物料"/>物料</label>
+			  <label><input name="thing2" type="checkbox" value="電子零件"/>電子零件</label>
+			  <label><input name="thing3" type="checkbox" value="刀具"/>刀具</label>
+			  <label><input name="thing4" type="checkbox" value="儀器"/>儀器</label>
+			  <label><input name="thing5" type="checkbox" value="工具"/>工具</label>
+			  <label><input name="thing6" type="checkbox" value="模具"/>模具</label>
+			  <label><input name="thing7" type="checkbox" value="氣動部件"/>氣動部件</label>
+			  <label><input name="thing8" type="checkbox" value="設備部件"/>設備部件</label>
+			  <label><input name="thing9" type="checkbox" value="其他"/>其他</label>
+			  <input stype="text" name="other_thing" id="other_thing" />
+			  <br />
+			  <br />
+			  <span>付款條件</span>
+			    <label><input name="pay1" type="checkbox" value="預付 "/>預付</label>
+			  <label><input name="pay2" type="checkbox" value="月結 "/>月結</label>
+			  <input style="width:100px "name="day" type="text" id="day"/>天
+			  <label><input name="pay3" type="checkbox" value="貨到付款"/>貨到付款</label>
+			  <label><input name="pay4" type="checkbox" value="其他"/>其他</label>
+			   <input style="width:200px "name="other_pay" type="text" id="other_pay"/>
+		 </div>
+		 <br />
+		  <span style="font-size:18px">部門主管批核:</span>
+		    <input style="width:300px" type="text" name="zhuguan_check" id="zhuguan_check" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			 <span style="font-size:18px;margin-left:30px" >經理部批核:</span>
+		    <input style="width:300px" type="text" name="jingli_check" id="jingli_check" />&nbsp;
+			<br /><br />
+		    <span style="font-size:18px">部門主管意見:</span>
+		    <input style="width:300px" type="text" name="zhuguan_suggest" id="zhuguan_suggest" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			 <span style="font-size:18px;margin-left:30px" >經理部行政批核:</span>
+		    <input style="width:265px" type="text" name="jingli_suggest" id="jingli_suggest" />&nbsp;
+		<br />
+		<br />
+		<div style="width:960px">
+		 <div style="width:40%;float:left;font-weight:bold;font-size:10px">
+		  <span>
+		   填表注意事項：<br />
+		   1、一張要求只可填寫一項未登錄過的物品，如果要購買的物品多餘一項請用多張表格填寫，<br />
+		   2、PRS NO由前台填寫并記錄，<br />
+		   3、收件人在收件時必須在此表上簽收,簽收后務必將此表格交回工程管理部保存，<br />
+		   4、在收件後請記錄PRS NO以及PARTS NO，以便日後在購買同樣物品時參考用，<br />
+		  </span>
+		 </div>
+		 <div class="end" style="width:35%;float:right;margin-right:50px">
+		    <br />
+			  &nbsp; &nbsp;  <span>發件人簽收：</span>
+			 <input  type="text" name="send_get" id="send_get" />
+			 <br /><br />
+			 &nbsp; &nbsp; &nbsp;  &nbsp; &nbsp; &nbsp; &nbsp;
+			  <span>日期：</span>
+			 <input  type="text" name="send_data" id="send_data" />
+		 </div>	 
+		 </div>
+		 </div>
+		 </form>
+</body>
+
+</html>

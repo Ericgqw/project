@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>ECharts</title>
+	<script src="../js/mycharts.js"></script>
+	<script src="../js/echarts.js"></script>
+    <script src="../js/jquery-1.11.3.min.js"></script>
+	<script src="../theme/roma.js"></script>
+	<script src="../theme/infographic.js"></script>
+	<script src="../theme/shine.js"></script>
+	<script src="../theme/dark.js"></script>
+	<script src="../theme/macarons.js"></script>
+	<script src="../theme/vintage.js"></script>
+	<link rel="stylesheet" href="../css/style.css" media="screen" type="text/css" />
+</head>
+<body>
+    <div id="menu" style="width:100px;height:50px">
+	  <navbar class='navbar-container' style="margin-left:350px;margin-top:50px">
+	 <ul id="theme">
+        <li>
+          <a href='#1'>roma</a>
+        </li>
+        <li>
+          <a href='#2'>infographic</a>
+        </li>
+        <li>
+          <a href='#3'>shine</a>
+        </li>
+        <li>
+          <a href='#4'>dark</a>
+        </li>
+        <li>
+          <a href='#5'>macarons</a>
+        </li>
+        <li>
+          <a href='#6'>vintage</a>
+        </li>
+      </ul>
+	  </navbar>
+	</div>
+	<div id="main" style="width: 1200px;height:600px;padding:100px">
+	</div>
+	<script type="text/javascript">
+		window.theme="dark";
+		window.bar_attribute=" ";
+		$("li").click(function(){
+			theme=$(this).text();
+			theme=$.trim(theme);
+			 myChart.dispose();
+        // 基于准备好的dom，初始化echarts实例
+          myChart = echarts.init(document.getElementById('main'),theme);
+        // 使用刚指定的配置项和数据显示图表。
+           myChart.setOption(bar_attribute);
+		})
+		
+	<!--参数一：放置图表div的id /参数二:主题  	 主题一：roma 	 主题二：infographic 	 主题三：shine 	 主题四：dark 	 主题五：macarons 	 主题六：vintage 	/参数三：渲染器（canvas（适用于pc）(默认)，svg（适用于移动端））
+    var myChart = echarts.init(document.getElementById('main'),'dark',{renderer: 'canvas'});                 $.ajax({ 
+				           url: "../php/getdatas.php",
+                           type:'post',data:{sql:"select * from RD_AUTO_Machine.Plan_AutoD"}, 
+						   context: document.body, 
+							dateType:"json",
+							success: function(data){
+                            var data_json=JSON.parse(data);							
+							 bar_attribute={                            	
+								mychart:myChart,		    //传入初始化图表				   
+                                title:{
+                                  text:"项目完成进度"        //图表标题
+							    },		                        
+								tooltip:{
+								 trigger:'item'
+								},
+								toolbox: {
+									show: true,
+									feature: {
+										dataZoom: {
+										yAxisIndex: 'none'
+									},
+								dataView: {readOnly: false},	
+								restore: {},
+								saveAsImage: {}   //要保存图片，必须使用canvas渲染器
+								}
+								},
+								radar:{
+								     name: {
+										textStyle: {
+											color: '#fff',
+											backgroundColor: '#999',
+											borderRadius: 3,
+											padding: [3, 5]
+										}
+									},
+									indicator: [
+										{ name: '自动机1', max: data_json[0]["PLANqty"]},
+										{ name: '自动机2', max: data_json[1]["PLANqty"]},
+										{ name: '自动机3', max: data_json[2]["PLANqty"]},
+										{ name: '自动机4', max: data_json[3]["PLANqty"]},
+										{ name: '自动机5', max: data_json[4]["PLANqty"]},
+										{ name: '自动机6', max: 1000}
+                                        ]
+                                  },								
+								legend:{
+									data:["Remainqty","DONEqty"]     //图例组件
+								 },	 
+			                    series : [{							    
+									name:"DONEqty",
+									type:'radar',
+									data:[
+									  {
+									    value:[data_json[0]["Remainqty"],data_json[1]["Remainqty"],data_json[2]["Remainqty"],data_json[3]["Remainqty"],data_json[4]["Remainqty"],800],
+									    name:"Remainqty"
+									  },
+									  {
+									    value:[data_json[0]["DONEqty"],data_json[1]["DONEqty"],data_json[2]["DONEqty"],data_json[3]["DONEqty"],data_json[4]["DONEqty"],200],
+										neme:"DONEqty"
+									  }
+									]
+                                }]			 
+			           };  
+                            barchart(bar_attribute);							  
+						},
+							error:function(){
+							
+						}
+					});
+    </script>    
+</body>
+</html>

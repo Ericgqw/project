@@ -1,0 +1,59 @@
+
+<!--  从服务器上获取json数据-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+	<title>grid</title>
+	<script src="js/ag-grid.js"></script>	
+</head>
+<body>
+ <h1>Hello from ag-grid!</h1>
+  <button onclick="getSelectedRows()">Get Selected Rows</button>
+  <div id="myGrid" style="height: 600px;width:500px;" class="ag-theme-balham"></div>
+
+  <script type="text/javascript" charset="utf-8">
+    // specify the columns
+    var columnDefs = [
+      {headerName: "Make", field: "make", checkboxSelection: true},
+      {headerName: "Model", field: "model"},
+      {headerName: "Price", field: "price"}
+    ];
+
+    // let the grid know which columns and what data to use
+    var gridOptions = {
+      columnDefs: columnDefs,
+      enableSorting: true,
+      enableFilter: true,
+	   rowSelection: 'multiple',
+	  onGridReady: function () {//表格创建完成后执行
+        gridOptions.api.sizeColumnsToFit();//调整表格大小自适应
+    }
+    };
+
+
+  // lookup the container we want the Grid to use
+  var eGridDiv = document.querySelector('#myGrid');
+
+  // create the grid passing in the div to use together with the columns & data we want to use
+  new agGrid.Grid(eGridDiv, gridOptions);
+  
+  fetch('https://api.myjson.com/bins/15psn9').then(function(response) {
+    return response.json();
+  }).then(function(data) {
+    gridOptions.api.setRowData(data);
+  })
+  function getSelectedRows() {   //选择某行的回调函数
+    var selectedNodes = gridOptions.api.getSelectedNodes()      //访问了网格API以获取当前选定的网格行节点;
+    var selectedData = selectedNodes.map(                       //获取节点中的数据
+	    function(node) { 
+			return node.data 
+		})   
+    var selectedDataStringPresentation = selectedData.map( 
+		function(node) { 
+			return node.make + ' ' + node.model }).join(', ')
+			alert('Selected nodes: ' + selectedDataStringPresentation);
+}
+  </script>
+  </body>
+</html>

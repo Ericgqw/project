@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>ECharts</title>
+	<script src="../js/mycharts.js"></script>
+	<script src="../js/echarts.js"></script>
+    <script src="../js/jquery-1.11.3.min.js"></script>
+	<script src="../theme/roma.js"></script>
+	<script src="../theme/infographic.js"></script>
+	<script src="../theme/shine.js"></script>
+	<script src="../theme/dark.js"></script>
+	<script src="../theme/macarons.js"></script>
+	<script src="../theme/vintage.js"></script>
+	<link rel="stylesheet" href="../css/style.css" media="screen" type="text/css" />
+</head>
+<body>
+    <!-- 使用图表需要创建一个div区域 -->
+	<div id="menu" style="width:100px;height:50px">
+	  <navbar class='navbar-container' style="margin-left:350px;margin-top:50px">
+	 <ul id="theme">
+        <li>
+          <a href='#1'>roma</a>
+        </li>
+        <li>
+          <a href='#2'>infographic</a>
+        </li>
+        <li>
+          <a href='#3'>shine</a>
+        </li>
+        <li>
+          <a href='#4'>dark</a>
+        </li>
+        <li>
+          <a href='#5'>macarons</a>
+        </li>
+        <li>
+          <a href='#6'>vintage</a>
+        </li>
+      </ul>
+	  </navbar>
+	</div>
+	<div id="main" style="width: 1200px;height:600px;padding:100px">
+	</div>
+	<script type="text/javascript">
+		window.theme="dark";
+		window.bar_attribute=" ";
+		$("li").click(function(){
+			theme=$(this).text();
+			theme=$.trim(theme);
+			 myChart.dispose();
+        // 基于准备好的dom，初始化echarts实例
+            myChart = echarts.init(document.getElementById('main'),theme);
+        // 使用刚指定的配置项和数据显示图表。         
+		  myChart.setOption(bar_attribute);
+		})
+		
+	<!--参数一：放置图表div的id /参数二:主题  	 主题一：roma 	 主题二：infographic 	 主题三：shine 	 主题四：dark 	 主题五：macarons 	 主题六：vintage 	/参数三：渲染器（canvas（适用于pc）(默认)，svg（适用于移动端））
+	    var myChart = echarts.init(document.getElementById('main'),theme,{renderer: 'canvas'});     
+		          $.ajax({ 
+				           url: "../php/getdatas.php",
+                           type:'post',data:{sql:"select * from RD_AUTO_Machine.Plan_prd"}, 
+						   context: document.body, 
+							dateType:"json",
+							success: function(data){
+                            var data_json=JSON.parse(data);							
+                            var PLANqty=" ";
+							var qtyOK=" ";          //定义需要拼接的字段
+							var Remainqty=" ";
+                            PLANqty=getString(data_json,"PLANqty");	  //得到拼接好的数据					
+							qtyOK=getString(data_json,"qtyOK");	
+                            Remainqty=getString(data_json,"Remainqty");							
+							 bar_attribute={                            	
+								mychart:myChart,		    //传入初始化图表				   
+                                title:{
+                                  text:"项目工序进度"        //图表标题
+							    },		                        
+								tooltip:{
+								 trigger:'axis'
+								},
+								grid: {
+								 left: '3%',
+                                 right: '4%',
+                                 bottom: '3%',
+                                 containLabel: true
+                               },
+								toolbox: {
+									show: true,
+									feature: {
+										dataZoom: {
+										yAxisIndex: 'none'
+									},
+								dataView: {readOnly: false},
+								magicType: {type: ['line', 'bar','stack']},
+								restore: {},
+								saveAsImage: {}    //要保存图片，必须使用canvas渲染器
+								}
+								},
+								legend:{
+									data:["完成数量","计划数量","剩余数量"]     //图例组件
+								 },		 
+								xAxis : [
+								{
+									type : 'value'
+								}
+								],								
+								yAxis : [
+								{
+									type : 'category',
+									axisTick : {show: false},
+									data : ["自动机1","自动机2","自动机3","自动化4","自动机5","自动机6","自动机7","自动机8"]
+								}
+								],								                             //y轴参数
+			                      series: [{                           //图表展示数据
+									name: '完成数量',
+									type: 'bar',          //可选，展示类型：bar、line、pie
+									label: {
+										normal: {
+										show: true,
+										position: 'inside'
+                                }
+                            },
+									data: qtyOK
+								},
+								{
+									name: '计划数量',
+									type: 'bar',
+									data: PLANqty,
+									label: {
+									normal: {
+                                    show: true        //为true显示数字
+                                }
+                            },
+									},
+									{
+									name: '剩余数量',
+									type: 'bar',
+									data: Remainqty,
+									label: {
+									normal: {
+                                     show: true,
+									 position:"inside"
+                                }
+                            },
+									}
+									]					 
+							  };  
+                            barchart(bar_attribute);							  
+						},
+							error:function(){
+							
+						}
+					});
+    </script>    
+</body>
+</html>
